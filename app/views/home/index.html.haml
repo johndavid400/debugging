@@ -1,0 +1,45 @@
+.container.board
+  .tile
+    .row
+      .span12.heading
+        %h4
+          %center Welcome to Prototype Robotics, the new home of Rediculouslygoodlooking.com
+        My old website was pretty basic, so I thought I would add some features - I hope you will bear with me as I improve the site. I have set up a place for me to add projects, tutorials, and articles. I will try to get all of the projects from rediculouslygoodlooking.com onto this site.. if you want one up sooner than later, email me. I will be adding a place to add comments soon, as well as a forum for general questions/discussions or specific questions related to projects from <a id="book" href="http://www.amazon.com/Arduino-Robotics-John-David-Warren/dp/1430231831">my book</a>.
+        %p
+        I have also been having a problem with my suppliers keeping parts long enough for me to write about them, so I will be starting my own Prototype Robotics web store to secure and sell sensors, motor-controllers, robotics kits (Seg-bot and Lawnbot400), and whatever else I can share. This means that I will also have user accounts to be able to purchase items from the store. Once you have a user account, you can add projects of your own to the site - I would love for anyone who has built a project from my book or instructables to please add their project to my site. It would be great for others to see how many people have built a Lawnbot or Segbot, and to share their parts used, build tips, and any modifications made. I will also be hosting links to all code on this site, so stay tuned and if you have a suggestion, feel free to let me know.
+    .row
+      .span7
+        %h2 Featured Content
+        = render 'shared/content_slider', :content => @featured_content
+      .span5
+        %h2 Recent Articles
+        - @articles.each do |article|
+          .article
+            .article_image= link_to image_tag(article.image.url(:thumb), :class => "imgshadow"), article_path(article)
+            %h4= article.name
+            =h truncate(article.description.html_safe, :length => 150 )
+            %p
+    .space= link_to "view all articles", articles_path
+
+    .row
+      %h2 Recent Projects
+      - @projects.each do |project|
+        .span4
+          %h4= project.name
+          .project_image= link_to image_tag(project.image.url(:thumb), :class => "imgshadow"), project_path(project)
+          =h truncate(project.description.html_safe, :length => 150 )
+    .space= link_to "view all projects", projects_path
+
+    .row
+      %h2 Recent Tutorials
+      - @tutorials.each do |tutorial|
+        .span4
+          %h4= tutorial.name
+          .project_image= link_to image_tag(tutorial.image.url(:thumb), :class => "imgshadow"), tutorial_path(tutorial)
+          =h truncate(tutorial.description.html_safe, :length => 150 )
+    .space= link_to "view all tutorials", tutorials_path
+
+  :javascript
+    $(window).load(function() {
+      $('.flexslider').flexslider();
+      });

@@ -1,0 +1,31 @@
+= form_for @project do |f|
+  .fieldset
+    .clearfix
+      = f.label :name
+      = f.text_field :name
+    .clearfix
+      = f.label :description
+      = f.cktext_area :description
+    .clearfix
+      = f.label :category
+      = f.text_field :category
+    .clearfix
+      = f.label :featured
+      = f.check_box :featured
+    .clearfix
+      = f.label :published
+      = f.check_box :published
+    .clearfix
+      = f.label :remove_image
+      = f.check_box :remove_image
+    .clearfix
+      .centered_image= image_tag(@project.image.url(:slider), :class => "imgshadow")
+    .clearfix
+      = f.label :image
+      = f.file_field :image
+
+  %p
+
+  .actions
+    = f.submit
+

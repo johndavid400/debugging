@@ -1,0 +1,11 @@
+#container
+  .flexslider
+    %ul.slides
+      - content.each do |c|
+        %li
+          .image= link_to image_tag(c.image.url(:slider)), c
+          %h2.title
+            = c.name if c.name.present?
+          .info
+            =h truncate(c.description.html_safe, :length => 150 ) if c.description.present?
+

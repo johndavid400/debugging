@@ -1,0 +1,68 @@
+.board
+  %h1= "Search Results for '#{@search}'"
+
+  - if @projects.empty? && @articles.empty? && @tutorials.empty?
+    %h3 Your search did not return any results.
+  - else
+    %h3= "Your search returned #{@search_results.count} results"
+
+  .search_group
+    - if !@projects.empty?
+      %h2 Projects
+      %table.table-striped.table-bordered
+        %tr
+          %th Name
+          %th Description
+          - if current_user && current_user.has_role?("admin")
+            %th
+            %th
+        - @projects.each do |project|
+          %tr
+            %td= link_to project.name, project
+            %td=h truncate(project.description.html_safe, :length => 250)
+            - if current_user && current_user.has_role?("admin")
+              %td= link_to 'Edit', edit_project_path(project)
+              %td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
+            - elsif current_user && current_user.id == project.spree_user_id
+              %td= link_to 'Edit', edit_project_path(project)
+
+  .search_group
+    - if !@articles.empty?
+      %h2 Articles
+      %table.table-striped.table-bordered
+        %tr
+          %th Name
+          %th Description
+          - if current_user && current_user.has_role?("admin")
+            %th
+            %th
+        - @articles.each do |article|
+          %tr
+            %td= link_to article.name, article
+            %td=h truncate(article.description.html_safe, :length => 250)
+            - if current_user && current_user.has_role?("admin")
+              %td= link_to 'Edit', edit_article_path(article)
+              %td= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete
+            - elsif current_user && current_user.id == article.spree_user_id
+              %td= link_to 'Edit', edit_article_path(article)
+
+  .search_group
+    - if !@tutorials.empty?
+      %h2 Tutorials
+      %table.table-striped.table-bordered
+        %tr
+          %th Name
+          %th Description
+          - if current_user && current_user.has_role?("admin")
+            %th
+            %th
+        - @tutorials.each do |tutorial|
+          %tr
+            %td= link_to tutorial.name, tutorial
+            %td=h truncate(tutorial.description.html_safe, :length => 250)
+            - if current_user && current_user.has_role?("admin")
+              %td= link_to 'Edit', edit_tutorial_path(tutorial)
+              %td= link_to 'Destroy', tutorial, :confirm => 'Are you sure?', :method => :delete
+            - elsif current_user && current_user.id == tutorial.spree_user_id
+              %td= link_to 'Edit', edit_tutorial_path(tutorial)
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prototype Robotics</title>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <div class="container">
+      <%= image_tag "logo_new_small.png", :width => "600px", :class => "logo" %>
+      <div class="pull-right search-box">
+        <%= form_tag({:controller => "home", :action => "search"}, :method => :post) do %>
+          <%= text_field_tag "search" %>
+          <%= submit_tag "search", :class => "btn-success" %>
+        <% end %>
+      </div>
+      <% if current_user %>
+        <%= link_to('Sign out', spree.destroy_user_session_path, :class => "btn session pull-right") %>
+      <% else %>
+        <%= link_to('Sign In', spree.new_user_session_path, :class => "btn success session pull-right") %>
+      <% end %>
+      <%= render :partial => 'shared/menu'%>
+    </div>
+  </head>
+  <body>
+    <div class="container">
+      <!-- <p class="notice"><%= notice %></p>  
+      <p class="alert"><%= alert %></p> -->
+      <%= yield %>
+      <br class="clear">
+    </div>
+  </body>
+</html>
+
+

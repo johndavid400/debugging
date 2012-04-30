@@ -1,0 +1,11 @@
+.board
+  %h2= Step
+
+  - if !@tutorial.steps.empty?
+    - @tutorial.steps.each do |step|
+      - if step.description?
+        .step_box
+          = step.step_number
+          = link_to image_tag(step.image.url(:thumb)), step_path(step)
+
+  = render 'form'

@@ -1,0 +1,10 @@
+.board
+  %h1= "Editing #{@project.name}"
+
+  = render 'form'
+
+  %p
+
+  = link_to 'Show', @project
+  \|
+  = link_to 'Back', projects_path

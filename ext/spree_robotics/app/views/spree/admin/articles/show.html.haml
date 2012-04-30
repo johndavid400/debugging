@@ -1,0 +1,16 @@
+.board
+  %p#notice= notice
+
+  %p
+    %h2= @article.name
+    = image_tag(@article.image.url(:large))
+  %p
+    %b Body:
+    = @article.description.html_safe
+  %p
+
+  - if current_user
+    - if @article.spree_user_id == current_user.id
+      = link_to 'Edit', edit_article_path(@article)
+      \|
+  = link_to 'Back', articles_path

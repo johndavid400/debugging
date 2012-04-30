@@ -1,0 +1,20 @@
+.board
+  %p#notice= notice
+
+  %center.white_box
+    %h3= "Tutorial: #{@step.tutorial.name.capitalize}"
+    %h4= "#{@step.step_number.capitalize}: #{@step.name}"
+  %center
+    = image_tag(@step.image.url(:slider), :class => "imgshadow")
+  %p
+  .white_box
+    %b Description:
+    = @step.description.html_safe
+
+  - if @step.galleries.present?
+    - @object = @step
+    = render 'shared/gallery', :content => @object
+
+  %p
+    = link_to 'Back', :back
+

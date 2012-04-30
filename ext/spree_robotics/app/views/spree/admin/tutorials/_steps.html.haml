@@ -1,0 +1,25 @@
+%fieldset
+  .board.steps_listing
+    %h2 Steps
+
+    %table.table-striped
+      %tr
+        %th Image
+        %th Step #
+        %th Name
+        %th Description
+        %th Edit
+        %th Destroy
+      - @tutorial.steps.order("step_number ASC").each do |step|
+        %tr
+          %td= link_to image_tag(step.image.url(:thumb)), step_path(step)
+          %td= step.step_number
+          %td= link_to step.name, admin_step_path(step)
+          %td=h truncate(step.description.html_safe, :length => 150 )
+          %td= link_to 'Edit', edit_admin_step_path(step)
+          %td= link_to 'Destroy', admin_step_path(step), :confirm => 'Are you sure?', :method => :delete
+
+    %p
+
+      = link_to 'New Step', new_admin_step_path(:tutorial => @tutorial.id)
+

@@ -1,0 +1,50 @@
+<center>
+  <h2><%= @object.name %> Image Gallery:</h2>
+  <div class="ad-gallery">
+    <div class="ad-image-wrapper">
+    </div>
+    <div class="ad-controls">
+    </div>
+    <div class="ad-nav">
+      <div class="ad-thumbs">
+        <ul class="ad-thumb-list">
+          <% @object.galleries.first.images.each do |image| %>
+            <li>
+            <a href="<%= image.attachment.url(:large) %>">
+              <img src="<%= image.attachment.url(:small) %>" title="<%= image.attachment_file_name %>">
+            </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</center>
+
+<script type="text/javascript">
+  $(window).load(function() {
+      var galleries = $('.ad-gallery').adGallery();
+      $('#switch-effect').change(
+        function() {
+        galleries[0].settings.effect = $(this).val();
+        return false;
+        }
+        );
+      $('#toggle-slideshow').click(
+        function() {
+        galleries[0].slideshow.toggle();
+        return false;
+        }
+        );
+      $('#toggle-description').click(
+        function() {
+        if(!galleries[0].settings.description_wrapper) {
+        galleries[0].settings.description_wrapper = $('#descriptions');
+        } else {
+        galleries[0].settings.description_wrapper = false;
+        }
+        return false;
+        }
+        );
+  });
+</script>

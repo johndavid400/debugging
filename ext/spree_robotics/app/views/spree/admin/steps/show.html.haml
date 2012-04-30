@@ -1,0 +1,8 @@
+.board
+  %h1= "#{@step.step_number.capitalize}: #{@step.name}"
+  %p
+  = image_tag @step.image.url(:large)
+  %p
+  = @step.description.html_safe
+  %p
+  = link_to 'back', :back

@@ -1,0 +1,19 @@
+.board
+  %p#notice= notice
+
+  %center.white_box
+    %h3= "Article: #{@article.name}"
+  %center
+    = image_tag(@article.image.url(:slider), :class => "imgshadow")
+  %p
+  .white_box
+    %b Description:
+    = @article.description.html_safe
+
+  - if @article.galleries.present?
+    - @object = @article
+    = render 'shared/gallery', :content => @object
+
+  %p
+    = link_to 'Back', :back
+

@@ -1,0 +1,23 @@
+.board
+  %h2 Tutorials List
+
+  %table.table-striped
+    %tr
+      %th Image
+      %th Name
+      %th Description
+      %th Number of Steps
+      %th Edit
+      %th Destroy
+    - @tutorials.each do |tutorial|
+      %tr
+        %td= link_to image_tag(tutorial.image.url(:thumb)), tutorial_path(tutorial)
+        %td= link_to tutorial.name, tutorial_path(tutorial)
+        %td=h truncate(tutorial.description.html_safe, :length => 500)
+        %td= tutorial.steps.count
+        %td= link_to 'Edit', edit_admin_tutorial_path(tutorial)
+        %td= link_to 'Destroy', admin_tutorial_path(tutorial), :confirm => 'Are you sure?', :method => :delete
+
+  %p
+
+  = link_to 'New Tutorial', new_admin_tutorial_path

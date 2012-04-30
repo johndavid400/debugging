@@ -1,0 +1,35 @@
+= form_for ([:admin, @step]) do |f|
+  - if @step.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@step.errors.count, "error")
+        prohibited this tutorial from being saved:
+      %ul
+        - @step.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    %legend
+      Step
+    .clearfix
+      = f.label :name
+      .input= f.text_field :name
+    .clearfix
+      = f.label :description
+      .input= f.cktext_area :description
+    .clearfix
+      = f.hidden_field :tutorial_id
+    .clearfix
+      = f.label :remove_image
+      .input= f.check_box :remove_image
+    - if @step.image
+      .clearfix
+        .centered_image= image_tag(@step.image.url(:slider), :class => "imgshadow")
+    .clearfix
+      = f.label :image
+      .input= f.file_field :image
+
+  .actions
+    = f.submit :submit, :class => 'btn primary'
+    = link_to 'Back', admin_tutorials_path, :class => 'btn'
+

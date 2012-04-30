@@ -1,0 +1,51 @@
+= form_for ([:admin, @gallery]) do |f|
+  - if @gallery.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@gallery.errors.count, "error")
+        prohibited this tutorial from being saved:
+      %ul
+        - @gallery.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    %legend
+      Gallery
+    .clearfix
+      = f.label :name
+      .input= f.text_field :name
+    .clearfix
+      = f.label :description
+      .input= f.text_area :description
+    .clearfix
+      = f.hidden_field :gallery_type
+    .clearfix
+      = f.hidden_field :article_id
+    .clearfix
+      = f.hidden_field :project_id
+
+  %fieldset
+    %legend
+      Images
+    = f.fields_for :images do |i|
+      = if i.object.attachment_file_name.nil?
+        .clearfix
+          = i.label :image
+          = i.file_field :attachment
+        .clearfix
+          = i.label :text
+          = i.text_field :text
+          %br
+    .clearfix.image_listing
+      %p
+      - if @gallery.images.present?
+        - @gallery.images.each do |image|
+          - if image.attachment_file_name.present?
+            .image_container
+              = image_tag(image.attachment.url(:product))
+              %br
+              = link_to "Remove", {:image_id => image.id, :action => "remove_image", :controller => "galleries", :method => "put"}
+
+  .actions
+    = f.submit :submit, :class => 'btn primary'
+

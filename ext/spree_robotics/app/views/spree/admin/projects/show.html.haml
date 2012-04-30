@@ -1,0 +1,16 @@
+.board
+  %p#notice= notice
+
+  %h3= @project.name
+  .centered_image= image_tag(@project.image.url(:slider), :class => "imgshadow")
+  %p
+    %b Description:
+    = @project.description.html_safe
+  %p
+    %b Type:
+    = @project.category
+
+  - if current_user && current_user.has_role?("admin")
+    = link_to 'Edit', edit_project_path(@project)
+    \|
+  = link_to 'Back', projects_path

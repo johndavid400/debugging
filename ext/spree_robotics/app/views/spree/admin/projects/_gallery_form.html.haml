@@ -1,0 +1,26 @@
+%p
+  %fieldset
+    .board.steps_listing
+      %h2 Galleries
+
+      %table.table-striped
+        - if @project.galleries.present?
+          %tr
+            %th First Image
+            %th Edit
+            %th Destroy
+
+          - @project.galleries.each do |gallery|
+            %tr
+              - if gallery.images.present?
+                %td= image_tag(gallery.images.first.attachment.url(:small))
+              - else
+                %td
+              %td= link_to 'Edit', edit_admin_gallery_path(gallery)
+              %td= link_to 'Destroy', admin_gallery_path(gallery), :confirm => 'Are you sure?', :method => :delete
+        -else
+          %h4= "There are currently no galleries to show, click on the link below to add a new gallery"
+
+      %p
+        = link_to 'New Gallery', new_admin_gallery_path(:project => @project.id, :type => "project")
+

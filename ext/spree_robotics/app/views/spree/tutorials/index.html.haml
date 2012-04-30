@@ -1,0 +1,16 @@
+.board
+  %h2 Tutorials List
+
+  %table.table-striped
+    %tr
+      %th Image
+      %th Name
+      %th Number of Steps
+
+    - @tutorials.each do |tutorial|
+      %tr
+        %td= link_to image_tag(tutorial.image.url(:thumb)), tutorial_path(tutorial)
+        %td= link_to tutorial.name, tutorial_path(tutorial)
+        %td= tutorial.steps.count
+
+  %p

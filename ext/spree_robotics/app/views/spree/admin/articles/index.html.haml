@@ -1,0 +1,24 @@
+.board
+  %h1 Articles List
+
+  %table.table-striped
+    %tr
+      %th Image
+      %th Name
+      %th Description
+      %th Created at
+      %th
+      %th
+
+    - @articles.each do |article|
+      %tr
+        %td= link_to image_tag(article.image.url(:thumb)), article_path(article)
+        %td= link_to article.name, admin_article_path(article)
+        %td=h truncate(article.description.html_safe, :length => 500)
+        %td= "Posted:" + "#{article.created_at.strftime("%m/%d/%Y at %I:%M%p")}"
+        %td= link_to 'Edit', edit_admin_article_path(article)
+        %td= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete
+
+  %br
+  - if current_user
+    = link_to 'New Article', new_admin_article_path

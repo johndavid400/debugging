@@ -1,0 +1,28 @@
+.board
+  %h1 Articles List
+
+  %table.table-striped
+    %tr
+      %th Image
+      %th Name
+      %th Description
+      %th Created at
+      - if current_user && current_user.has_role?("admin")
+        %th
+        %th
+
+    - @articles.each do |article|
+      %tr
+        %td= link_to image_tag(article.image.url(:thumb)), article_path(article)
+        %td= article.name
+        %td=h truncate(article.description.html_safe, :length => 500)
+        %td= "Posted:" + "#{article.created_at.strftime("%m/%d/%Y at %I:%M%p")}"
+        - if current_user && current_user.has_role?("admin")
+          %td= link_to 'Edit', edit_article_path(article)
+          %td= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete
+        - elsif current_user && current_user.id == article.spree_user_id
+          %td= link_to 'Edit', edit_article_path(article)
+
+  %br
+  - if current_user
+    = link_to 'New Article', new_article_path

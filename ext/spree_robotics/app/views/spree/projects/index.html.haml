@@ -1,0 +1,17 @@
+.board
+  %h1 Listing projects
+
+  %table.table-striped
+    %tr
+      %th Name
+      %th Description
+      %th Type
+
+    - @projects.each do |project|
+      %tr
+        %td= link_to project.name, project
+        %td=h truncate(project.description.html_safe, :length => 500)
+        %td= project.category
+
+  %br
+

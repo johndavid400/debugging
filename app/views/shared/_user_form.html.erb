@@ -1,0 +1,13 @@
+<%= f.field_container :username do %>
+  <%= f.label :username, t(:username) %><br />
+  <%= f.text_field :username %>
+  <%= f.error_message_on :username %>
+<% end %>
+
+<%= f.field_container :active do %>
+  <%= f.label :active, t(:active) %><br />
+  <%= f.check_box :active %>
+  <%= f.error_message_on :active %>
+<% end %>
+
+

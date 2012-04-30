@@ -1,0 +1,8 @@
+.board
+  %h2= "Editing #{@project.name}"
+
+  = render 'form'
+
+  = render 'gallery_form'
+
+  = link_to 'Back', projects_path

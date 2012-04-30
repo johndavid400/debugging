@@ -1,0 +1,17 @@
+.board
+  %h1 Articles List
+
+  %table.table-striped
+    %tr
+      %th Image
+      %th Name
+      %th Description
+      %th Created at
+
+    - @articles.each do |article|
+      %tr
+        %td= link_to image_tag(article.image.url(:thumb)), article_path(article)
+        %td= article.name
+        %td=h truncate(article.description.html_safe, :length => 500)
+        %td= "Posted:" + "#{article.created_at.strftime("%m/%d/%Y at %I:%M%p")}"
+

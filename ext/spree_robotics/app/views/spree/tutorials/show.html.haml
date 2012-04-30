@@ -1,0 +1,26 @@
+.board
+  %p#notice= notice
+
+  %center.white_box
+    %h3= "Tutorial: #{@tutorial.name}"
+  %center
+    = image_tag(@tutorial.image.url(:slider), :class => "imgshadow")
+  %p
+  .clear_steps.white_box
+    %b Description:
+    = @tutorial.description.html_safe
+    %p
+    %b Category:
+    = @tutorial.category
+
+
+  - if !@tutorial.steps.empty?
+    - @tutorial.steps.each do |step|
+      .step_box
+        %b= step.step_number
+        = link_to image_tag(step.image.url(:thumb)), step_path(step)
+        = step.name.html_safe
+
+  .clear_steps
+    %p
+    = link_to 'Back', projects_path

@@ -1,0 +1,192 @@
+<ul id="menu">
+
+  <!--  tab - home -->
+
+  <li><%= link_to "Home", "/" %>
+  <div class="dropdown_4columns"><!-- Begin 2 columns container -->
+    <div class="col_4">
+      <h2>About me:</h2>
+    </div>
+    <div class="col_4">
+      My name is JD Warren and I build things. I have taken apart nearly everything I have ever owned - to me it is more important to know how it works, than to actually have it work (though now I can keep things working).
+      <p>
+      Lately, I have transitioned from hardware hacking into the scary and unknown world of software. I work as a Ruby on Rails developer, building web applications at Isotope11. When i'm not at work coding or at home with my lovely wife, i'm probably in the garage hacking on something or writing about somthing i've just hacked.
+      </p>
+      <p>Here are a few publications that I have been in:</p>
+      <a href="http://www.make-digital.com/make/vol22#pg1">Make Magazine 22</a>
+      <br>
+      <a href="http://www.uab.edu/uabmagazine/fall2010/departments/alumni">UAB alumni magazine</a>
+      <br>
+      <a href="http://www.wired.com/magazine/2011/03/ff_makestuff_projects/">Wired Magazine - 21 Awesome Hacks (#18)</a>
+      <br>
+      <a href="http://www.amazon.com/Arduino-Robotics-John-David-Warren/dp/1430231831">Arduino Robotics (my new book)</a>
+      <p>And a few videos:</p>
+      <a href="http://blog.makezine.com/archive/2011/07/the-latest-in-arduino-episode-2.html">MAKE: Latest in Arduino (02)</a>
+      <br>
+      <a href="http://www.youtube.com/watch?v=uhDou04jj7Q">MAKE: Latest in Arduino (03)</a>
+      <p />
+    </div>
+    <div class="col_4">
+      <h2>Website focus:</h2>
+    </div>
+    <div class="col_4">
+      <p>This website was created to help others find cheaper, easier, or better ways of building robotics projects, understanding electronics, and anything else I find that might be helpful to article on here.</p>
+    </div>
+  </div><!-- End 2 columns container -->
+  </li><!-- End Home Item -->
+
+  <!-- end tab - home -->
+
+  <!-- begin tab - blog -->
+
+  <li><%= link_to "Blog", articles_path %>
+    <div class="dropdown_3columns"><!-- Begin 3 columns container -->
+
+      <div class="col_3">
+        <h2>Recent Articles</h2>
+      </div>
+
+      <div class="col_3">
+        <% Spree::Article.all.take(3).each do |article| %>
+          <div class="row">
+            <span class="span2">
+              <%= link_to image_tag(article.image.url(:thumb), :class => "imgshadow inline"), article_path(article) %>
+            </span>
+            <span class="span3">
+              <a href="<%= article_path(article) %>"><b><u><%= article.name.html_safe %></u></b>: <%= article.updated_at.strftime(" published on %_m/%e/%y") %></a>
+              <%=h truncate(article.description.html_safe, :length => 100) %>
+            </span>
+          </div>
+          <hr>
+        <% end %>
+        <center><%= link_to "view all articles", articles_path %></center>
+      </div>
+    </div>
+  </li>
+
+    <!-- end tab - blog -->
+
+    <!-- begin tab - projects -->
+
+    <li><%= link_to "Projects", projects_path, :class => "drop" %><!-- Begin 3 columns Item -->
+    <div class="dropdown_3columns"><!-- Begin 3 columns container -->
+      <div class="col_3">
+        <h2>Project Categories</h2>
+      </div>
+
+      <% c = 0 %>
+      <% Spree::Project.all.collect{|p| p.category}.uniq.each do |category| %>
+        <% c = c + 1 %>
+        <% if c == 1 %>
+          <div class="col_1">
+            <ul class="greybox">
+        <% end %>
+              <li><%= link_to category, :controller => 'projects', :action => 'search_projects', :category => category %></li>
+        <% if c == Spree::Project.all.collect{|p| p.category}.uniq.count / 3 %>
+            </ul>
+          </div>
+          <% c = 0 %>
+        <% end %>
+      <% end %>
+      <p />
+
+      <div class="col_3">
+        <h2>Most popular projects</h2>
+      </div>
+      <div class="col_3">
+        <% Spree::Project.all.take(3).each do |project| %>
+          <div class="row">
+            <div class="span2">
+              <%= link_to image_tag(project.image.url(:thumb), :class => "imgshadow"), project_path(project) %>
+            </div>
+            <div class="span3">
+              <b><u><%= link_to project.name.html_safe, project_path(project) %></u></b>
+              <%=h truncate(project.description.html_safe, :length => 100) %>
+            </div>
+          </div>
+          <hr>
+        <% end %>
+        <center><%= link_to "view all projects", projects_path %></center>
+      </div>
+    </div>
+    </li>
+
+    <!-- end tab - projects -->
+
+    <!-- begin tab - tutorials -->
+
+    <li><%= link_to "Tutorials", tutorials_path, :class => "drop" %>
+    <div class="dropdown_3columns">
+      <div class="col_3">
+        <h2>DIY Tutorials</h2>
+      </div>
+      <%- Spree::Tutorial.all.collect{|p| p.category}.uniq.each do |category| %>
+        <div class="col_3">
+          <h3><%= category %></h3>
+          <%- Spree::Tutorial.all.select{|t| t.category == category }.take(3).each do |w| %>
+            <div class="tutorial_menu">
+              <%= link_to image_tag(w.image.url(:thumb), :class => "imgshadow"), tutorial_path(w) %>
+              <%= w.name %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    </li>
+
+    <!-- end tab - tutorials -->
+
+    <!-- Begin tab - links -->
+
+    <li><a href="#" class="drop">Links</a>
+    <div class="dropdown_4columns">
+      <div class="col_1">
+        <h3>My Links</h3>
+        <ul>
+          <li><a href="http://www.instructables.com/member/johndavid400/">My Instructables</a></li>
+          <li><a href="https://github.com/johndavid400">My Github</a></li>
+          <li><a href="http://www.youtube.com/user/johndavid400">My Youtube channel</a></li>
+          <li><a href="http://rediculouslygoodlooking.com/">My old website</a></li>
+        </ul>
+      </div>
+      <div class="col_1">
+        <h3>Favorite Links</h3>
+        <ul>
+          <li><a href="http://hackaday.com/">Hackaday</a></li>
+          <li><a href="http://reddit.com/">reddit</a></li>
+          <li><a href="http://www.instructables.com/">Instructables</a></li>
+          <li><a href="http://arduino.cc">Arduino</a></li>
+        </ul>
+      </div>
+      <div class="col_1">
+        <h3>Helpful</h3>
+        <ul>
+          <li><a href="http://www.sparkfun.com">Sparkfun</a></li>
+          <li><a href="http://www.adafruit.com/tutorials">LadyAda</a></li>
+          <li><a href="http://www.dannyg.com/examples/res2/resistor.htm">Resistor Colors</a></li>
+          <li><a href="http://www.willingtons.com/mymac/ohm_calc.htm">Ohm Calculator</a></li>
+        </ul>
+      </div>
+      <div class="col_1">
+        <h3>Suppliers</h3>
+        <ul>
+          <li><a href="http://www.digikey.com/">Digikey</a></li>
+          <li><a href="http://www.radioshack.com/home/index.jsp">Radio Shack</a></li>
+          <li><a href="http://www.seeedstudio.com/depot/">Seeed Studio</a></li>
+          <li><a href="http://www.ebay.com">Ebay</a></li>
+        </ul>
+      </div>
+    </div><!-- End 4 columns container -->
+    </li><!-- End 4 columns Item -->
+
+    <!-- end tab - links -->
+
+    <!-- Begin tab - Store -->
+
+    <li><%= link_to "Forums", "/forums" %>
+    </li>
+
+    <!-- end tab - Store -->
+
+  </ul>
+

@@ -1,0 +1,15 @@
+.board
+  %h1 Project search results
+
+  %table.zebra-striped
+    %tr
+      %th Name
+      %th Description
+      %th Type
+
+    - @projects.each do |project|
+      %tr
+        %td= link_to project.name, project
+        %td= project.description
+        %td= project.category
+
